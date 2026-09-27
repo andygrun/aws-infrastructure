@@ -27,3 +27,11 @@ data "aws_ssoadmin_instances" "this" {
 output "arn" { value = tolist(data.aws_ssoadmin_instances.this.arns)[0] }
 
 output "identity_store_id" { value = tolist(data.aws_ssoadmin_instances.this.identity_store_ids)[0] }
+
+resource "aws_identitystore_group" "DevOps" {
+  provider          = aws.sso
+  display_name      = "DevOps"
+  description       = "DevOps team group managed by terraform"
+  identity_store_id = tolist(data.aws_ssoadmin_instances.this.identity_store_ids)[0]
+
+}
