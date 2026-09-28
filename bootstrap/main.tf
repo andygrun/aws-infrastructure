@@ -35,3 +35,22 @@ resource "aws_identitystore_group" "DevOps" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.this.identity_store_ids)[0]
 
 }
+
+resource "aws_identitystore_user" "this" {
+  identity_store_id = tolist(data.aws_ssoadmin_instances.this.identity_store_ids)[0]
+  provider          = aws.sso
+
+  display_name = "Andy Dev"
+  user_name    = "andydev"
+
+  name {
+    given_name  = "Andy"
+    family_name = "Dev"
+  }
+
+  emails {
+    value   = "andersongrun89@gmail.com"
+    primary = true
+  }
+}
+
